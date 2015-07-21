@@ -1,0 +1,30 @@
+{
+  "Sensoren": {
+    "ch0": { "typ":"4","alias":"Sensor 1", "min":0,"max":100},
+    "ch1": { "typ":"1","alias":"Sensor 2", "min":0,"max":0},
+    "ch2": { "typ":"1","alias":"Sensor 3", "min":0,"max":0},
+    "ch3": { "typ":"1","alias":"Sensor 4", "min":0,"max":0},
+    "ch4": { "typ":"1","alias":"Sensor 5", "min":0,"max":0},
+    "ch5": { "typ":"1","alias":"Sensor 6", "min":0,"max":0},
+    "ch6": { "typ":"1","alias":"Sensor 7", "min":0,"max":0},
+    "ch7": { "typ":"10","alias":"Sensor 8", "min":0,"max":0},
+    "beeper": false
+  },
+  "Messen": {
+    "messwiderstand": 47,
+    "messwiderstand0": 47,
+    "messwiderstand1": 47,
+    "messwiderstand2": 47,
+    "messwiderstand3": 47,
+    "messwiderstand4": 47,
+    "messwiderstand5": 47,
+    "messwiderstand6": 47,
+    "messwiderstand7": 1.002,
+    "iterations": 100,
+    "delay": 3.0
+  },
+  "Alarm": {
+    "push": { "cmd":"" , "active":false}
+  }
+
+}
