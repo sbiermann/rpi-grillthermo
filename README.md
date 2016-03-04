@@ -1,2 +1,2 @@
 # rpi-grillthermo
-This some functions of this software based on https://github.com/WLANThermo
+This project is inspired by https://github.com/WLANThermo
