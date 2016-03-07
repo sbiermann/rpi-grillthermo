@@ -21,6 +21,7 @@ IPAddress subnet(255,255,255,0);
 /*************************************************/
 const char* thingspeak_host = "api.thingspeak.com";
 const char* thingspeak_key = "thingspeakkey";
+const char* thingspeak_field = "field1";
 
 /*************************************************/
 /* Maverick ET-732                               */
