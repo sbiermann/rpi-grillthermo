@@ -90,7 +90,7 @@ void loop() {
     return;
    }
 
-   String url = "/update?key=81SW5DTWCBIUT9D8&field1="+String(avTemp);
+   String url = "/update?key=" + thingspeak_key + "&field1="+String(avTemp);
    if (debugOutput) {
     Serial.print("Requesting URL: ");
     Serial.println(url);
