@@ -62,10 +62,16 @@ void loop() {
    float minTemp = 999.99f;
    float maxTemp = 0.0;
    int numberReadings = 1000;
+   boolean badReading = false;
    if (debugOutput) { Serial.println("start reading..."); }
    for(int i = 0; i < numberReadings; i++)
    { 
      sensorvalue = analogRead(A0);
+     if(sensorvalue <= 5 || sensorvalue > 1024)
+     {
+       badReading = true;
+       break;
+     }
      delay(2);
      double Rt = resistor * ((1024.0/sensorvalue) - 1);
      float v, T;
@@ -78,7 +84,9 @@ void loop() {
      sumTemp += T;
    }
    digitalWrite(2, HIGH);
-   float avTemp = sumTemp/numberReadings;
+   float avTemp = 999.99f;
+   if(!badReading)
+      avTemp = sumTemp/numberReadings;
    if (debugOutput) { 
     Serial.println("finished reading...");
     Serial.print("minTemp: "); Serial.print(minTemp); Serial.print(" maxTemp: "); Serial.print(maxTemp); Serial.print(" avTemp: "); Serial.println(avTemp);
@@ -90,7 +98,7 @@ void loop() {
     return;
    }
 
-   String url = "/update?key=" + thingspeak_key + "&" + thingspeak_field + "="+ String(avTemp);
+   String url = "/update?key=" + String(thingspeak_key) + "&" + String(thingspeak_field) + "="+ String(avTemp);
    if (debugOutput) {
     Serial.print("Requesting URL: ");
     Serial.println(url);
