@@ -8,6 +8,12 @@
 #include "myconfig.h"
 #include <Wire.h>
 
+#include <DNSServer.h>
+#include <ESP8266WebServer.h>
+#include <WiFiManager.h>
+#include <ESP8266HTTPClient.h>
+#include <ESP8266httpUpdate.h>
+
 // Include API-Headers
 extern "C" {
 #include "ets_sys.h"
@@ -23,6 +29,7 @@ extern "C" {
 
 // Create an WiFiClient object, here called "ethClient":
 WiFiClient ethClient;
+WiFiManager wifiManager;
 
 // ------------------------
 void setup() {
@@ -31,29 +38,11 @@ void setup() {
    if (debugOutput) Serial.println("ESP8266 starts...");
    pinMode(A0, INPUT);
    pinMode(2, OUTPUT);
-   
-   if (debugOutput) Serial.println("Wifi wait for connection");
-   if (debugOutput) Serial.setDebugOutput(true); // enable WIFI Debug output
-   if (debugOutput) Serial.println();
-   if (debugOutput) Serial.print("Connecting to ");
-   if (debugOutput) Serial.println(ssid);
 
-   WiFi.begin(ssid, password);
-   WiFi.config(ip, gateway, subnet);
-
-   // Wait for connection
-   while (WiFi.status() != WL_CONNECTED) {
-     delay(500);
-     if (debugOutput)  Serial.print(".");
-   }
-   if (debugOutput) Serial.println();
-   if (debugOutput) Serial.println("WiFi connected");
-   if (debugOutput) Serial.print("IP address: ");
-   if (debugOutput) Serial.println(WiFi.localIP());
-   if (debugOutput) Serial.println("Wifi Started");
+   wifiManager.autoConnect();
    delay(100);
+   do_update();
 }
-
 
 void loop() {
    digitalWrite(2, LOW);
@@ -119,5 +108,21 @@ void loop() {
    ethClient.stop();
    if (debugOutput) { Serial.println("waiting 30s..."); }
    delay(30000);
+}
+
+void do_update(){
+  Serial.println("do update");
+  t_httpUpdate_return ret = ESPhttpUpdate.update(update_server, 80, update_uri, firmware_version);
+  switch(ret) {
+    case HTTP_UPDATE_FAILED:
+        Serial.println("[update] Update failed.");
+        break;
+    case HTTP_UPDATE_NO_UPDATES:
+        Serial.println("[update] no Update needed");
+        break;
+    case HTTP_UPDATE_OK:
+        Serial.println("[update] Update ok."); // may not called we reboot the ESP
+        break;
+  }
 }
 

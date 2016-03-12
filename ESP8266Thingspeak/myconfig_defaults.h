@@ -4,17 +4,11 @@
 const bool debugOutput = true;  // set to true for serial OUTPUT
 
 /*************************************************/
-/* Settings for WLAN                             */
-/*************************************************/
-const char* ssid = "ssid";
-const char* password = "mysecret";
-
-/*************************************************/
-/* Static IP                                     */
-/*************************************************/
-IPAddress ip(192,168,0,2);
-IPAddress gateway(192,168,0,1);
-IPAddress subnet(255,255,255,0);
+/* Update settings                               */
+/*************************************************/ 
+const char* firmware_version = "wlanthermo_0.X.Y";
+const char* update_server = "10.0.0.X";
+const char* update_uri = "/esp/update/arduino.php";
 
 /*************************************************/
 /* Thingspeak data                               */
